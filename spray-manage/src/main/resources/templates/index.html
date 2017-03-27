@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/resources :: resources">
+</head>
+<body>
+    <!-- top -->
+    <div class="navbar navbar-default" id="navbar" th:include="common/top :: top"></div>
+    <!-- main -->
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try {ace.settings.check('main-container', 'fixed')} catch (e) {}
+        </script>
+        <!-- left -->
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="#">
+                <span class="menu-text"></span>
+            </a>
+            <div class="sidebar" id="sidebar" th:include="common/left :: left">
+            </div>
+
+            <!-- content -->
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <script type="text/javascript">
+                        try {
+                            ace.settings.check('breadcrumbs', 'fixed')
+                        } catch (e) {
+                        }
+                    </script>
+
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="#">首页</a>
+                        </li>
+                        <li class="active">控制台</li>
+                    </ul><!-- .breadcrumb -->
+
+                </div>
+
+                <div class="page-content">
+
+                    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+                </div><!-- /.page-content -->
+            </div>
+
+            <!-- footer -->
+            <div class="ace-settings-container" id="ace-settings-container" th:include="common/footer :: footer"></div>
+
+        </div>
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="icon-double-angle-up icon-only bigger-110"></i>
+        </a>
+    </div>
+    <!-- config -->
+    <div th:include="common/config :: config"></div>
+    <script>
+        $("#index_active").addClass("active");
+    </script>
+</body>
+</html>

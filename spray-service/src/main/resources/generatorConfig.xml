@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.shang.spray.repository.BaseRepository"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/spray?characterEncoding=utf8"
+                        userId="root" password="">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.shang.spray.entity" targetProject="src/main/java">
+        </javaModelGenerator>
+
+        <table tableName="type" />
+
+
+    </context>
+
+</generatorConfiguration>

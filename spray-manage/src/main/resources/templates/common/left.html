@@ -1,0 +1,222 @@
+<div th:fragment="left">
+    <script type="text/javascript">
+        try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+    </script>
+
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+                <i class="icon-signal"></i>
+            </button>
+
+            <button class="btn btn-info">
+                <i class="icon-pencil"></i>
+            </button>
+
+            <button class="btn btn-warning">
+                <i class="icon-group"></i>
+            </button>
+
+            <button class="btn btn-danger">
+                <i class="icon-cogs"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
+    </div><!-- #sidebar-shortcuts -->
+
+    <ul class="nav nav-list">
+        <li id="index_active">
+            <a th:href="@{/main}">
+                <i class="icon-dashboard"></i>
+                <span class="menu-text"> 控制台 </span>
+            </a>
+        </li>
+
+        <li id="news_list">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-desktop"></i>
+                <span class="menu-text"> 精选管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li id="news_list_active">
+                    <a th:href="@{/news}">
+                        <i class="icon-double-angle-right"></i>
+                        精选列表
+                    </a>
+                </li>
+
+                <li id="news_add_link_active">
+                    <a th:href="@{/news/addLink}">
+                        <i class="icon-double-angle-right"></i>
+                        添加链接
+                    </a>
+                </li>
+
+                <li id="news_add_active">
+                    <a th:href="@{/news/addNews}">
+                        <i class="icon-double-angle-right"></i>
+                        添加内容
+                    </a>
+                </li>
+
+                <li id="type_list_active">
+                    <a th:href="@{/type}">
+                        <i class="icon-double-angle-right"></i>
+                        类目管理
+                    </a>
+                </li>
+                <li id="type_add_active">
+                    <a th:href="@{/type/addLink}">
+                        <i class="icon-double-angle-right"></i>
+                        添加类目
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+
+
+        <li id="beautiful_list">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-list"></i>
+                <span class="menu-text"> 美图管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li id="beautiful_list_active">
+                    <a th:href="@{/beautiful}">
+                        <i class="icon-double-angle-right"></i>
+                        美图列表
+                    </a>
+                </li>
+
+                <li id="beautiful_add_link_active">
+                    <a th:href="@{/beautiful/addLink}">
+                        <i class="icon-double-angle-right"></i>
+                        添加美图
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <li id="funny_list">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-tag"></i>
+                <span class="menu-text"> 搞笑管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li id="funny-list-active">
+                    <a th:href="@{/funny}">
+                        <i class="icon-double-angle-right"></i>
+                        搞笑列表
+                    </a>
+                </li>
+
+                <li id="funny_add_link_active">
+                    <a th:href="@{/funny/addLink}">
+                        <i class="icon-double-angle-right"></i>
+                        添加搞笑
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-edit"></i>
+                <span class="menu-text"> 缘分管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li id="fate-list-active">
+                    <a href="#">
+                        <i class="icon-double-angle-right"></i>
+                        缘分列表
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <li id="sources_list">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-desktop"></i>
+                <span class="menu-text"> 来源管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li id="sources_list_active">
+                    <a th:href="@{/sources}">
+                        <i class="icon-double-angle-right"></i>
+                        来源列表
+                    </a>
+                </li>
+
+                <li id="sourcess_add_link_active">
+                    <a th:href="@{/sources/addLink}">
+                        <i class="icon-double-angle-right"></i>
+                        添加来源
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li id="config_list">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-desktop"></i>
+                <span class="menu-text"> 配置管理 </span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li id="config_list_active">
+                    <a th:href="@{/config}">
+                        <i class="icon-double-angle-right"></i>
+                        配置列表
+                    </a>
+                </li>
+
+                <li id="config_add_link_active">
+                    <a th:href="@{/config/addLink}">
+                        <i class="icon-double-angle-right"></i>
+                        添加配置
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul><!-- /.nav-list -->
+
+    <div class="sidebar-collapse" id="sidebar-collapse">
+        <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+    </div>
+
+    <script type="text/javascript">
+        try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+    </script>
+</div>

@@ -1,0 +1,42 @@
+        <div th:include="base :: base"></div>
+        <div th:fragment="resources">
+            <title>后台系统</title>
+            <link rel="icon" type="image/png" th:href="@{http://www.shuihua.me/favicon.png}" />
+            <!-- basic styles -->
+        <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}"/>
+
+        <!--[if IE 7]>
+          <link rel="stylesheet" th:href="@{/assets/css/font-awesome-ie7.min.css}"/>
+        <![endif]-->
+
+        <!-- page specific plugin styles -->
+
+        <!-- fonts
+
+        <link rel="stylesheet" th:href="@{/assets/css/bootstrap.min.css}"/>
+        -->
+        <!-- ace styles -->
+
+        <link rel="stylesheet" th:href="@{/assets/css/ace.min.css}"/>
+        <link rel="stylesheet" th:href="@{/assets/css/ace-rtl.min.css}"/>
+        <link rel="stylesheet" th:href="@{/assets/css/ace-skins.min.css}"/>
+
+        <!--[if lte IE 8]>
+          <link rel="stylesheet" th:href="@{/assets/css/ace-ie.min.css}"/>
+        <![endif]-->
+
+        <!-- inline styles related to this page -->
+
+        <!-- ace settings handler -->
+
+        <script th:src="@{/assets/js/ace-extra.min.js}" ></script>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+        <!--[if lt IE 9]>
+        <script th:src="@{/assets/js/html5shiv.js}" />
+        <script th:src="@{/assets/js/respond.min.js}" />
+        <![endif]-->
+
+        </div>

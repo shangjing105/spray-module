@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="common/resources :: resources">
+</head>
+<body>
+<!-- top -->
+<div class="navbar navbar-default" id="navbar" th:include="common/top :: top"></div>
+<!-- main -->
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {ace.settings.check('main-container', 'fixed')} catch (e) {}
+    </script>
+    <!-- left -->
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <div class="sidebar" id="sidebar" th:include="common/left :: left">
+        </div>
+
+        <!-- content -->
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try {
+                        ace.settings.check('breadcrumbs', 'fixed')
+                    } catch (e) {
+                    }
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="#">美图管理</a>
+                    </li>
+                    <li class="active" >添加美图</li>
+                </ul><!-- .breadcrumb -->
+
+            </div>
+
+            <div class="page-content">
+
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="table-responsive">
+
+                            <form class="form-horizontal" role="form" th:action="@{/beautiful/addLink}" method="post">
+                                <input th:name="id" type="hidden" th:value="${beautiful!=null and beautiful.id != null}?${beautiful.id}"/>
+
+                                <!--<div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 标题 </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" id="form-field-1"  th:name="title" th:value="${news!=null and news.title != null}?${news.title}" placeholder="标题" class="col-xs-10 col-sm-5" />
+                                    </div>
+                                </div>-->
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 链接地址 </label>
+
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" rows="5" id="form-field-8" th:name="link" th:text="${beautiful!=null and beautiful.link != null}?${beautiful.link}" placeholder="链接地址"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 来源 </label>
+
+                                    <div class="col-sm-6">
+                                        <select class="width-80 form-control" id="form-field-select-3" th:name="sources.id">
+                                            <option th:each="s:${sources}" th:text="${s.source}"  th:value="${s.id}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 设置 </label>
+
+                                    <div class="col-sm-6">
+                                        <label>
+                                            <input name="form-field-checkbox" id="placedTop" type="checkbox" class="ace" th:name="placedTop" th:value="true"/>
+                                            <span class="lbl"> 置顶</span>
+                                        </label>
+                                        <label>
+                                            <input name="form-field-checkbox" id="recommend" type="checkbox" class="ace" th:name="recommend" th:value="true"/>
+                                            <span class="lbl"> 推荐</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="icon-ok bigger-110"></i>
+                                            提交
+                                        </button>
+
+                                        &nbsp; &nbsp; &nbsp;
+                                        <button class="btn" type="reset">
+                                            <i class="icon-undo bigger-110"></i>
+                                            重置
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.page-content -->
+        </div>
+
+        <!-- footer -->
+        <div class="ace-settings-container" id="ace-settings-container" th:include="common/footer :: footer"></div>
+
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+
+
+
+<!-- config -->
+<div th:include="common/config :: config"></div>
+
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $("#beautiful_list").addClass("active open");
+    $("#beautiful_add_link_active").addClass("active");
+    jQuery(function($) {
+        if (/*[[${beautiful!=null}]]*/) {
+            $("#form-field-select-3").val(/*[[${beautiful!=null and beautiful.sources != null}?${beautiful.sources.id}]]*/);
+            $("#recommend").attr("checked",/*[[${beautiful!=null and beautiful.recommend != null}?${beautiful.recommend}]]*/);
+            $("#placedTop").attr("checked",/*[[${beautiful!=null and beautiful.placedTop != null}?${beautiful.placedTop}]]*/);
+        }
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

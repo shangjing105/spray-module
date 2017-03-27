@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="common/resources :: resources">
+</head>
+<body>
+<!-- top -->
+<div class="navbar navbar-default" id="navbar" th:include="common/top :: top"></div>
+<!-- main -->
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {ace.settings.check('main-container', 'fixed')} catch (e) {}
+    </script>
+    <!-- left -->
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <div class="sidebar" id="sidebar" th:include="common/left :: left">
+        </div>
+
+        <!-- content -->
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try {
+                        ace.settings.check('breadcrumbs', 'fixed')
+                    } catch (e) {
+                    }
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="#">精选管理</a>
+                    </li>
+                    <li class="active" >添加内容</li>
+                </ul><!-- .breadcrumb -->
+
+            </div>
+
+            <div class="page-content">
+
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="table-responsive">
+
+                            <form class="form-horizontal" role="form" th:action="@{/news/addLink}" method="post">
+                                <input th:name="id" type="hidden" th:value="${news!=null and news.id != null}?${news.id}"/>
+                                <input th:name="explicitLink" type="hidden" th:value="false"/>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" > 标题 </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text"   th:name="title" th:value="${news!=null and news.title != null}?${news.title}" placeholder="标题" class="col-xs-10 col-sm-5" />
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" > 排序 </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text"   th:name="sort" th:value="${news!=null and news.sort != null}?${news.sort}" placeholder="排序" class="col-xs-10 col-sm-5" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" > 来源 </label>
+
+                                    <div class="col-sm-6">
+                                        <select class="width-80 form-control" id="sourcesId" th:name="sources.id">
+                                            <option th:each="s:${sources}" th:text="${s.source}"  th:value="${s.id}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" > 设置 </label>
+
+                                    <div class="col-sm-6">
+                                        <label>
+                                            <input name="form-field-checkbox" id="placedTop" type="checkbox" class="ace" th:name="placedTop" th:value="true"/>
+                                            <span class="lbl"> 置顶</span>
+                                        </label>
+                                        <label>
+                                            <input name="form-field-checkbox" id="recommend" type="checkbox" class="ace" th:name="recommend" th:value="true"/>
+                                            <span class="lbl"> 推荐</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <h4 class="header green">内容</h4>
+
+                                        <div class="widget-box">
+                                            <div class="widget-header widget-header-small header-color-blue">  </div>
+
+                                            <div class="widget-body">
+                                                <div class="widget-main no-padding">
+													<textarea class="span12" th:name="content" th:text="${news!=null and news.content != null}?${news.content}" data-provide="markdown" rows="20"  placeholder="内容">
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="icon-ok bigger-110"></i>
+                                            提交
+                                        </button>
+
+                                        &nbsp; &nbsp; &nbsp;
+                                        <button class="btn" type="reset">
+                                            <i class="icon-undo bigger-110"></i>
+                                            重置
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.page-content -->
+        </div>
+
+        <!-- footer -->
+        <div class="ace-settings-container" id="ace-settings-container" th:include="common/footer :: footer"></div>
+
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+
+
+
+<!-- config -->
+<div th:include="common/config :: config"></div>
+<script th:src="@{/assets/js/markdown/markdown.min.js}"></script>
+<script th:src="@{/assets/js/markdown/bootstrap-markdown.min.js}"></script>
+<script th:src="@{/assets/js/bootbox.min.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $("#news_list").addClass("active open");
+    $("#news_add_active").addClass("active");
+    $(function() {
+
+        if (/*[[${news!=null}]]*/) {
+            $("#sourcesId").val(/*[[${news!=null and news.sources != null}?${news.sources.id}]]*/);
+            $("#recommend").attr("checked",/*[[${news!=null and news.recommend != null}?${news.recommend}]]*/);
+            $("#placedTop").attr("checked",/*[[${news!=null and news.placedTop != null}?${news.placedTop}]]*/);
+        }
+
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>
