@@ -9,6 +9,8 @@ spray-service 项目基础公共模块
 spray-manage 项目后台管理模块
 
 spray-crawler 项目定时任务爬虫模块
+
+spray-cas 单独的单点登录cas项目
 ```
 
 spray-service为公共模块，其他模块都需要引用这个模块的jar
