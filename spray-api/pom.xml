@@ -7,7 +7,7 @@
     <groupId>com.shang</groupId>
     <artifactId>spray-api</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>spray-api</name>
 
     <properties>
@@ -43,5 +43,13 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

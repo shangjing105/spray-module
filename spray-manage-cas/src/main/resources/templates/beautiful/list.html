@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="common/resources :: resources">
+</head>
+<body>
+<!-- top -->
+<div class="navbar navbar-default" id="navbar" th:include="common/top :: top"></div>
+<!-- main -->
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {ace.settings.check('main-container', 'fixed')} catch (e) {}
+    </script>
+    <!-- left -->
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <div class="sidebar" id="sidebar" th:include="common/left :: left">
+        </div>
+
+        <!-- content -->
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try {
+                        ace.settings.check('breadcrumbs', 'fixed')
+                    } catch (e) {
+                    }
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="#">美图管理</a>
+                    </li>
+                    <li class="active" >美图列表</li>
+                </ul><!-- .breadcrumb -->
+
+            </div>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <h1>美图列表</h1>
+                </div><!-- /.page-header -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row-fluid">
+                            <div class="row">
+                                <div class="col-sm-1"><div id="sample-table-2_length" class="dataTables_length">
+                                    <label>
+                                        <select size="1" id="status" aria-controls="sample-table-2">
+                                            <option value="-1" selected="selected">全部</option>
+                                            <option value="1">上架</option>
+                                            <option value="2">下架</option>
+                                        </select>
+                                    </label>
+                                </div></div>
+                            </div>
+                            <ul class="ace-thumbnails">
+                                <li th:each="b : ${beautiful}">
+                                    <a  th:href="@{${b.link}}" title="Photo Title" data-rel="colorbox">
+                                        <img alt="150x150" th:src="@{${b.link}}" th:width="150px" th:height="150px"/>
+                                    </a>
+
+                                    <div class="tags">
+                                        <span class="label-holder">
+											<span class="label label-info" th:text="${b.statusName}">breakfast</span>
+                                        </span>
+                                        <span class="label-holder" th:if="${b.placedTop!=null}?${b.placedTop}">
+											<span class="label label-danger arrowed-in" >置顶</span>
+                                        </span>
+                                        <span class="label-holder" th:if="${b.recommend!=null}?${b.recommend}">
+											<span class="label label-success arrowed-in" >推荐</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="tools">
+                                        <a th:href="@{/beautiful/addLink(id=${b.id})}">
+                                            <i class="icon-pencil green"></i>
+                                        </a>
+                                        <a th:href="@{/beautiful/closeBeautiful/__${b.id}__}">
+                                            <i class="icon-lock blue"></i>
+                                        </a>
+                                        <a th:href="@{/beautiful/delBeautiful/__${b.id}__}" onclick="javascript:return confirm('你确定要删除吗?')" th:alt="删除">
+                                            <i class="icon-remove red"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!--- 分页 -->
+                            <ul class="pagination" id="pagination1" style="float: right;"></ul>
+                        </div><!-- PAGE CONTENT ENDS -->
+                    </div>
+                </div>
+
+            </div><!-- /.page-content -->
+        </div>
+
+        <!-- footer -->
+        <div class="ace-settings-container" id="ace-settings-container" th:include="common/footer :: footer"></div>
+
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+
+
+<!-- config -->
+<div th:include="common/config :: config"></div>
+
+<link rel="stylesheet" th:href="@{/assets/css/colorbox.css}" />
+<script th:src="@{/common/js/jqPaginator.js}"></script>
+<script th:src="@{/assets/js/jquery.colorbox-min.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $("#beautiful_list").addClass("active open");
+    $("#beautiful_list_active").addClass("active");
+    $("#status").val(/*[[${status}]]*/);
+
+    jQuery(function($) {
+        $.jqPaginator('#pagination1', {
+            totalPages: /*[[${beautiful.totalPages}]]*/,
+            visiblePages: 10,
+            currentPage: /*[[${beautiful.number+1}]]*/,
+            first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"></i>上一页</a></li>',
+            next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"></i></a></li>',
+            last: '<li class="last"><a href="javascript:void(0);">末页</a></li>',
+            page: '<li class="page"><a href="javascript:void(0);">{{page}}</a></li>',
+            onPageChange: function (num, type) {
+                if (type=='change') {
+                    location.href="/beautiful?page="+(num-1);
+                }
+            }
+        });
+
+        var colorbox_params = {
+            reposition:true,
+            scalePhotos:true,
+            scrolling:false,
+            previous:'<i class="icon-arrow-left"></i>',
+            next:'<i class="icon-arrow-right"></i>',
+            close:'&times;',
+            current:'{current} of {total}',
+            maxWidth:'100%',
+            maxHeight:'100%',
+            onOpen:function(){
+                document.body.style.overflow = 'hidden';
+            },
+            onClosed:function(){
+                document.body.style.overflow = 'auto';
+            },
+            onComplete:function(){
+                $.colorbox.resize();
+            }
+        };
+
+        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+        $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
+
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

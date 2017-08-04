@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="common/resources :: resources">
+</head>
+<body>
+<!-- top -->
+<div class="navbar navbar-default" id="navbar" th:include="common/top :: top"></div>
+<!-- main -->
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {ace.settings.check('main-container', 'fixed')} catch (e) {}
+    </script>
+    <!-- left -->
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <div class="sidebar" id="sidebar" th:include="common/left :: left">
+        </div>
+
+        <!-- content -->
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try {
+                        ace.settings.check('breadcrumbs', 'fixed')
+                    } catch (e) {
+                    }
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="#">搞笑管理</a>
+                    </li>
+                    <li class="active" >搞笑列表</li>
+                </ul><!-- .breadcrumb -->
+
+            </div>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <h1>搞笑列表</h1>
+                </div><!-- /.page-header -->
+
+                <div class="row">
+                    <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-sm-1"><div id="sample-table-2_length" class="dataTables_length">
+                                    <label>
+                                        <select size="1" id="status" aria-controls="sample-table-2">
+                                            <option value="-1" selected="selected">全部</option>
+                                            <option value="1">上架</option>
+                                            <option value="2">下架</option>
+                                        </select>
+                                    </label>
+                                </div></div>
+                                </div>
+                        <div class="table-responsive">
+                            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th th:width="500px">内容</th>
+                                    <th>来源</th>
+                                    <th>排序值</th>
+                                    <th>标签</th>
+                                    <th>修改时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="n,nStat : ${funny}">
+                                    <td th:text="${n.id}">1</td>
+                                    <td th:text="${(#strings.length(n.content))>100?#strings.substring(n.content,0,100):n.content}">1</td>
+                                    <td th:text="${n.sources.source}">1</td>
+                                    <td th:text="${n.sort}">1</td>
+                                    <td >
+                                        <span class="label-holder">
+											<span class="label label-info" th:text="${n.statusName}">breakfast</span>
+                                        </span>
+                                        <span class="label-holder" th:if="${n.placedTop!=null}?${n.placedTop}">
+											<span class="label label-danger arrowed-in" >置顶</span>
+                                        </span>
+                                        <span class="label-holder" th:if="${n.recommend!=null}?${n.recommend}">
+											<span class="label label-success arrowed-in" >推荐</span>
+                                        </span>
+                                    </td>
+                                    <td th:text="${#dates.format(n.modifyDate, 'yyyy-MM-dd HH:mm:ss')}">1</td>
+                                    <td>
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+
+                                            <a class="green" th:href="@{/funny/addLink(id=${n.id})}" alt="编辑">
+                                                <i class="icon-pencil bigger-130"></i>
+                                            </a>
+
+                                            <a class="blue" th:href="@{/funny/closeFunny/__${n.id}__}" th:alt="上下架">
+                                                <i class=" icon-lock bigger-130"></i>
+                                            </a>
+
+                                            <a class="red" th:href="@{/funny/delFunny/__${n.id}__}" onclick="javascript:return confirm('你确定要删除吗?')" th:alt="删除">
+                                                <i class="icon-trash bigger-130"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--- 分页 -->
+                            <ul class="pagination" id="pagination1" style="float: right;"></ul>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.page-content -->
+        </div>
+
+        <!-- footer -->
+        <div class="ace-settings-container" id="ace-settings-container" th:include="common/footer :: footer"></div>
+
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+
+
+
+<!-- config -->
+<div th:include="common/config :: config"></div>
+
+
+<!-- page specific plugin scripts -->
+<script th:src="@{/assets/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/assets/js/jquery.dataTables.bootstrap.js}"></script>
+<script th:src="@{/common/js/jqPaginator.js}"></script>
+
+
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $("#funny_list").addClass("active open");
+    $("#funny_list_active").addClass("active");
+    $("#status").val(/*[[${status}]]*/);
+
+    jQuery(function($) {
+        $.jqPaginator('#pagination1', {
+            totalPages: /*[[${funny.totalPages}]]*/,
+            visiblePages: 10,
+            currentPage: /*[[${funny.number+1}]]*/,
+            first: '<li class="first"><a href="javascript:void(0);">首页</a></li>',
+            prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"></i>上一页</a></li>',
+            next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"></i></a></li>',
+            last: '<li class="last"><a href="javascript:void(0);">末页</a></li>',
+            page: '<li class="page"><a href="javascript:void(0);">{{page}}</a></li>',
+            onPageChange: function (num, type) {
+                if (type=='change') {
+                    location.href="/funny?page="+(num-1);
+                }
+            }
+        });
+
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

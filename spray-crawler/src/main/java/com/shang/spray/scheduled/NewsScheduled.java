@@ -1,17 +1,11 @@
 package com.shang.spray.scheduled;
 
-import com.alibaba.fastjson.JSON;
-import com.shang.spray.activemq.Producer;
-import com.shang.spray.activemq.SprayEvent;
-import com.shang.spray.activemq.SprayMessageConverter;
+import com.shang.spray.entity.Config;
+import com.shang.spray.pipeline.NewsPipeline;
 import com.shang.spray.processor.DevelopersProcessor;
 import com.shang.spray.processor.JianShuProcessor;
 import com.shang.spray.processor.ZhiHuProcessor;
-import com.shang.spray.entity.Config;
-import com.shang.spray.pipeline.NewsPipeline;
 import com.shang.spray.service.ConfigService;
-import com.shang.spray.utils.Utils;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,7 +18,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * info:新闻定时任务
@@ -113,19 +106,6 @@ public class NewsScheduled {
             spider.start();
             spider.stop();
         }
-    }
-
-    @Autowired
-    private Producer producer;
-
-    @Scheduled(cron = "0/20 * * * * ? ")
-    public void sendJms() {
-        System.out.println("每20秒执行一次--------------------");
-        SprayEvent event=new SprayEvent();
-        event.setEvent(SprayEvent.Event.EVENT_TACK_SUCCESS);
-        event.setText("Jms Message to activemq,my name is shangjing");
-        producer.send(event,SprayEvent.SPRAY_TASK_EVENT_QUEUE,new SprayMessageConverter());
-
     }
 
 }

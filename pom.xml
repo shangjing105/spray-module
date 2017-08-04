@@ -18,6 +18,7 @@
         <module>spray-service</module>
         <module>spray-api</module>
         <module>spray-manage</module>
+        <module>spray-manage-cas</module>
         <module>spray-crawler</module>
         <module>spray-cas</module>
     </modules>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:include="common/resources :: resources">
+</head>
+<body>
+<!-- top -->
+<div class="navbar navbar-default" id="navbar" th:include="common/top :: top"></div>
+<!-- main -->
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {ace.settings.check('main-container', 'fixed')} catch (e) {}
+    </script>
+    <!-- left -->
+    <div class="main-container-inner">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        <div class="sidebar" id="sidebar" th:include="common/left :: left">
+        </div>
+
+        <!-- content -->
+        <div class="main-content">
+            <div class="breadcrumbs" id="breadcrumbs">
+                <script type="text/javascript">
+                    try {
+                        ace.settings.check('breadcrumbs', 'fixed')
+                    } catch (e) {
+                    }
+                </script>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home home-icon"></i>
+                        <a href="#">配置管理</a>
+                    </li>
+                    <li class="active" >添加配置</li>
+                </ul><!-- .breadcrumb -->
+
+            </div>
+
+            <div class="page-content">
+
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <div class="table-responsive">
+
+                            <form class="form-horizontal" role="form" th:action="@{/config/addLink}" method="post">
+                                <input th:name="id" type="hidden" th:value="${config!=null and config.id != null}?${config.id}"/>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 代码 </label>
+
+                                    <div class="col-sm-9">
+                                        <input type="text" id="form-field-1"  th:name="code" th:value="${config!=null and config.code!=null}?${config.code}" placeholder="代码" class="col-xs-10 col-sm-5" />
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 描述 </label>
+
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" id="form-field-8" th:name="info" th:text="${config!=null and config.info!= null}?${config.info}" placeholder="描述"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 内容 </label>
+
+                                    <div class="col-sm-6">
+                                        <textarea class="form-control" rows="10" id="form-field-8" th:name="content" th:text="${config!=null and config.content!= null}?${config.content}" placeholder="内容"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="icon-ok bigger-110"></i>
+                                            提交
+                                        </button>
+
+                                        &nbsp; &nbsp; &nbsp;
+                                        <button class="btn" type="reset">
+                                            <i class="icon-undo bigger-110"></i>
+                                            重置
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.page-content -->
+        </div>
+
+        <!-- footer -->
+        <div class="ace-settings-container" id="ace-settings-container" th:include="common/footer :: footer"></div>
+
+    </div>
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div>
+
+
+
+<!-- config -->
+<div th:include="common/config :: config"></div>
+
+
+<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    $("#config_list").addClass("active open");
+    $("#config_add_link_active").addClass("active");
+    jQuery(function($) {
+
+
+    });
+    /*]]>*/
+</script>
+
+</body>
+</html>

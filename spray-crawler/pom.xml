@@ -7,7 +7,7 @@
     <groupId>com.shang</groupId>
     <artifactId>spray-crawler</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>spray-crawler</name>
 
     <properties>
@@ -67,4 +67,13 @@
             <url>http://repo.spring.io/libs-snapshot</url>
         </pluginRepository>
     </pluginRepositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
