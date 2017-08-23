@@ -4,23 +4,17 @@ import com.shang.spray.base.BaseApiResult;
 import com.shang.spray.entity.News;
 import com.shang.spray.entity.Type;
 import com.shang.spray.utils.ModelHelper;
+import com.shang.spray.utils.specification.Criteria;
+import com.shang.spray.utils.specification.Restrictions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,20 +43,11 @@ public class NewsApiController extends BaseController {
 
     private Page<News> getNewses(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "15") Integer size, final Integer typeId) {
         Sort sort=new Sort(Sort.Direction.DESC,"placedTop","recommend","createDate").and(new Sort(Sort.Direction.ASC,"sort"));
-        Specification<News> specification=new Specification<News>() {
-            @Override
-            public Predicate toPredicate(Root<News> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> list = new ArrayList<>();
-                list.add(criteriaBuilder.equal(root.get("status"),News.StatusEnum.SHANGJIA.getCode()));
-                if (!StringUtils.isEmpty(typeId)) {
-                    list.add(criteriaBuilder.equal(root.get("typeId"),typeId));
-                }
-                Predicate[] p = new Predicate[list.size()];
-                return criteriaBuilder.and(list.toArray(p));
-            }
-        };
+        Criteria<News> criteria = new Criteria<News>();
+        criteria.add(Restrictions.eq("status", News.StatusEnum.SHANGJIA.getCode()));
+        criteria.add(Restrictions.eq("typeId", typeId));
         Pageable pageable=new PageRequest(page,size,sort);
-        return newsService.findAllApi(specification,pageable);
+        return newsService.findAllApi(criteria,pageable);
     }
 
 
@@ -84,15 +69,10 @@ public class NewsApiController extends BaseController {
         Map<String,Object> map=createMap();
         try {
             Sort sort=new Sort(Sort.Direction.ASC,"sort").and(new Sort(Sort.Direction.DESC,"createDate"));
-            Specification<Type> specification=new Specification<Type>() {
-                @Override
-                public Predicate toPredicate(Root<Type> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                    criteriaQuery.where(criteriaBuilder.equal(root.get("status"),Type.StatusEnum.SHANGJIA.getCode()));
-                    return null;
-                }
-            };
+            Criteria<Type> criteria = new Criteria<Type>();
+            criteria.add(Restrictions.eq("status", News.StatusEnum.SHANGJIA.getCode()));
             Pageable pageable=new PageRequest(page,size,sort);
-            Page<Type> news= typeService.findAllApi(specification,pageable);
+            Page<Type> news= typeService.findAllApi(criteria,pageable);
             for (Type type : news.getContent()) {
                 Page<News> newses=getNewses(page,size,type.getId());
                 type.setNewsList(newses.getContent());

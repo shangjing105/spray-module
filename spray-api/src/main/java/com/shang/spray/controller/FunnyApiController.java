@@ -3,19 +3,16 @@ package com.shang.spray.controller;
 import com.shang.spray.base.BaseApiResult;
 import com.shang.spray.entity.Funny;
 import com.shang.spray.utils.ModelHelper;
+import com.shang.spray.utils.specification.Criteria;
+import com.shang.spray.utils.specification.Restrictions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.Map;
 
 /**
@@ -32,15 +29,10 @@ public class FunnyApiController extends BaseController{
         Map<String,Object> map=createMap();
         try {
             Sort sort=new Sort(Sort.Direction.DESC,"placedTop","recommend","createDate").and(new Sort(Sort.Direction.ASC,"sort"));
-            Specification<Funny> specification=new Specification<Funny>() {
-                @Override
-                public Predicate toPredicate(Root<Funny> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                    criteriaQuery.where(criteriaBuilder.equal(root.get("status"),Funny.StatusEnum.SHANGJIA.getCode()));
-                    return null;
-                }
-            };
+            Criteria<Funny> criteria = new Criteria<Funny>();
+            criteria.add(Restrictions.eq("status", Funny.StatusEnum.SHANGJIA.getCode()));
             Pageable pageable=new PageRequest(page,size,sort);
-            Page<Funny> funnies= funnyService.findAllApi(specification,pageable);
+            Page<Funny> funnies= funnyService.findAllApi(criteria,pageable);
             map.put("funny",funnies.getContent());
             map.put("last",funnies.isLast());
             map.put("result", ModelHelper.OK(result));
