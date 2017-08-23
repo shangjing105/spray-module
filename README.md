@@ -8,7 +8,7 @@ spray-service 项目基础公共模块
 
 spray-manage 项目后台管理模块，采用spring-security登陆拦截
 
-spray-crawler 项目定时任务爬虫模块
+spray-crawler 项目定时任务爬虫模块,采用Job任务模式，可后台配置
 
 spray-cas 单独的单点登录cas项目
 

@@ -64,6 +64,11 @@ public class News extends BaseEntity{
     private String title;
 
     /**
+     * 封面图片url
+     */
+    private String coverUrl;
+
+    /**
      * 描述
      */
     private String info;
@@ -177,6 +182,13 @@ public class News extends BaseEntity{
         this.author = author;
     }
 
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
 
     public String getLabel() {
         return label;
