@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.shang</groupId>
-    <artifactId>spray-manage</artifactId>
+    <artifactId>spray-manage-cas</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>spray-manage</name>
+    <name>spray-manage-cas</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -41,6 +41,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-cas</artifactId>
+            <version>4.2.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
