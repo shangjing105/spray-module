@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
  * Created by shang on 2016/10/17.
  */
 @Service
-@CacheConfig(cacheNames = "typeService")
 public class TypeService extends BaseService<Type> {
 
-    @Cacheable(key = "'Type_findAllApi'+#pageable.pageNumber")
     public Page<Type> findAllApi(Specification<Type> specification, Pageable pageable) {
         return typeRepository.findAll(specification, pageable);
     }
