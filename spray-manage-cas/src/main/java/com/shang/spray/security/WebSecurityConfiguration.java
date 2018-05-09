@@ -67,7 +67,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public CasAuthenticationFilter casAuthenticationFilter() throws Exception {
 		CasAuthenticationFilter casAuthenticationFilter = new CasAuthenticationFilter();
 		casAuthenticationFilter.setAuthenticationManager(authenticationManager());
-		casAuthenticationFilter.setFilterProcessesUrl("/j_spring_cas_security_check");
 		return casAuthenticationFilter;
 	}
 
@@ -82,6 +81,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public SingleSignOutFilter singleSignOutFilter() {
 		SingleSignOutFilter singleSignOutFilter = new SingleSignOutFilter();
+		singleSignOutFilter.setIgnoreInitConfiguration(true);
 		singleSignOutFilter.setCasServerUrlPrefix(env.getRequiredProperty(CAS_URL_PREFIX));
 		return singleSignOutFilter;
 	}
